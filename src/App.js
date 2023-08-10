@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+
+import AddUser from "./components/addUser/AddUser";
+import UserView from "./components/userView/UserView";
+import { useSelector } from "react-redux";
+import "./App.css";
 
 function App() {
+  // const [usersList, setUsersList] = useState([]);
+  const { usersList } = useSelector((state) => state.users);
+
+  // const updateUsersList = (newUser) => {
+  //   // setUsersList([...usersList, newUser]);
+  // };
+
+
+  const renderUsers = usersList.map((el, index) => (
+    <UserView
+      key={index}
+      name={el.name}
+      lastName={el.lastName}
+      reactions={el.reactions}
+    />
+  ));
+  console.log("users list", usersList);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        <h5>Users App</h5>
       </header>
+      <AddUser />
+      {renderUsers}
     </div>
   );
 }
